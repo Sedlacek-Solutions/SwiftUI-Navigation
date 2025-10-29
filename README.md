@@ -1,17 +1,15 @@
-<p align="center">
-  <img src = "https://github.com/JamesSedlacek/Routing/blob/main/Assets/RoutingBannerArt.png">
-</p>
+# SwiftUI-Navigation
 
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![GitHub stars](https://img.shields.io/github/stars/JamesSedlacek/Routing.svg)](https://github.com/JamesSedlacek/Routing/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JamesSedlacek/Routing.svg?color=blue)](https://github.com/JamesSedlacek/Routing/network)
-[![GitHub contributors](https://img.shields.io/github/contributors/JamesSedlacek/Routing.svg?color=blue)](https://github.com/JamesSedlacek/Routing/network)
-<a href="https://github.com/JamesSedlacek/Routing/pulls"><img src="https://img.shields.io/github/issues-pr/JamesSedlacek/Routing" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/JamesSedlacek/Routing/issues"><img src="https://img.shields.io/github/issues/JamesSedlacek/Routing" alt="Issues Badge"/></a>
+[![GitHub stars](https://img.shields.io/github/stars/JamesSedlacek/SwiftUI-Navigation.svg)](https://github.com/JamesSedlacek/SwiftUI-Navigation/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/JamesSedlacek/SwiftUI-Navigation.svg?color=blue)](https://github.com/JamesSedlacek/SwiftUI-Navigation/network)
+[![GitHub contributors](https://img.shields.io/github/contributors/JamesSedlacek/SwiftUI-Navigation.svg?color=blue)](https://github.com/JamesSedlacek/SwiftUI-Navigation/network)
+<a href="https://github.com/JamesSedlacek/SwiftUI-Navigation/pulls"><img src="https://img.shields.io/github/issues-pr/JamesSedlacek/SwiftUI-Navigation" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/JamesSedlacek/SwiftUI-Navigation/issues"><img src="https://img.shields.io/github/issues/JamesSedlacek/SwiftUI-Navigation" alt="Issues Badge"/></a>
 
 ## Description
 
-`Routing` is a **lightweight** SwiftUI navigation library.
+`SwiftUI-Navigation` is a **lightweight** SwiftUI navigation library.
 - Leverages 1st-party APIs `NavigationStack` & `NavigationDestination`.
 - Never be confused about `NavigationLink` or `NavigationPath` again! (You don't need them)
 - Type-Safe Navigation (better performance than type-erasing).
@@ -29,7 +27,6 @@
 4. [Passing Data Example](#passing-data-example)
 5. [View Extensions](#view-extensions)
 6. [Under the hood](#under-the-hood)
-7. [Author](#author)
 
 <br>
 
@@ -46,30 +43,30 @@
 
 ## Installation
 
-You can install `Routing` using the Swift Package Manager.
+You can install `SwiftUI-Navigation` using the Swift Package Manager.
 
 1. In Xcode, select `File` > `Add Package Dependencies`.
 <br>
 
 2. Copy & paste the following into the `Search or Enter Package URL` search bar.
 ```
-https://github.com/JamesSedlacek/Routing.git
+https://github.com/JamesSedlacek/SwiftUI-Navigation.git
 ```
 <br>
 
-3. Xcode will fetch the repository & the `Routing` library will be added to your project.
+3. Xcode will fetch the repository & the `SwiftUI-Navigation` library will be added to your project.
 
 <br>
 
 ## Getting Started
 
-1. Create a `Route` enum that conforms to the `Routable` protocol.
+1. Create a `Destination` enum that conforms to the `Destination` protocol.
 
 ``` swift
-import Routing
+import Navigation
 import SwiftUI
 
-enum ExampleRoute: Routable {
+enum ExampleDestination: Destination {
     case detail
     case settings
     
@@ -84,26 +81,26 @@ enum ExampleRoute: Routable {
 }
 ```
 
-2. Create a `Router` object and wrap your `RootView` with a `RoutingView`.
+2. Create a `DestinationState` object and wrap your `RootView` with a `Navigator`.
 
 ``` swift
 import SwiftUI
-import Routing
+import Navigation
 
 struct ContentView: View {
-    @Router private var router: [ExampleRoute] = []
+    @DestinationState private var destinations: [ExampleDestination] = []
 
     var body: some View {
-        RoutingView(path: $router) {
+        Navigator(path: $destinations) {
             Button("Go to Settings") {
-                router.navigate(to: .settings)
+                destinations.navigate(to: .settings)
             }
         }
     }
 }
 ```
 
-3. Handle navigation using the `Router` functions
+3. Handle navigation using the `DestinationState` functions
 
 ```swift
 /// Navigate back in the stack by a specified count.
@@ -130,10 +127,10 @@ func replace(with destinations: [Destination])
 ## Passing Data Example
 
 ```swift
-import Routing
+import Navigation
 import SwiftUI
 
-enum ContentRoute: Routable {
+enum ContentDestination: Destination {
     case detail(Color)
     case settings
 
@@ -148,15 +145,15 @@ enum ContentRoute: Routable {
 }
 
 struct ContentView: View {
-    @Router private var router: [ContentRoute] = []
+    @DestinationState private var destinations: [ContentDestination] = []
     private let colors: [Color] = [.red, .green, .blue]
 
     var body: some View {
-        RoutingView(path: $router) {
+        Navigator(path: $destinations) {
             List(colors, id: \.self) { color in
                 color
                     .onTapGesture {
-                        router.navigate(to: .detail(color))
+                        destinations.navigate(to: .detail(color))
                     }
             }
         }
@@ -180,34 +177,34 @@ struct ColorDetail: View {
 
 ## View Extensions
 
-`Routing` provides several `View` extensions to simplify common navigation and presentation patterns when working with `Routable` types.
+`SwiftUI-Navigation` provides several `View` extensions to simplify common navigation and presentation patterns when working with `Destination` types.
 
-### `navigationDestination(for: RouteType.self)`
+### `navigationDestination(for: DestinationType.self)`
 
-This extension is a convenience wrapper around the standard SwiftUI `navigationDestination(for:destination:)` modifier. It's tailored for use with types conforming to `Routable`, automatically using the `Routable` instance itself as the destination view.
+This extension is a convenience wrapper around the standard SwiftUI `navigationDestination(for:destination:)` modifier. It's tailored for use with types conforming to `Destination`, automatically using the `Destination` instance itself as the destination view.
 
 ```swift
 // Usage within a view:
-// SomeView().navigationDestination(for: MyRoute.self)
-// This is often handled automatically by RoutingView.
+// SomeView().navigationDestination(for: MyDestination.self)
+// This is often handled automatically by Navigator.
 ```
-`RoutingView` uses this extension internally to set up navigation for your `Routable` enum.
+`Navigator` uses this extension internally to set up navigation for your `Destination` enum.
 
 ### `sheet(item:onDismiss:)`
 
-Presents a sheet when a binding to an optional `Routable & Identifiable` item becomes non-nil. The content of the sheet is the `Routable` item itself.
+Presents a sheet when a binding to an optional `Destination & Identifiable` item becomes non-nil. The content of the sheet is the `Destination` item itself.
 
--   `item`: A `Binding` to an optional `Routable & Identifiable` item.
+-   `item`: A `Binding` to an optional `Destination & Identifiable` item.
 -   `onDismiss`: An optional closure executed when the sheet dismisses.
 
-**Note:** The `Routable` type used with this modifier must also conform to `Identifiable`.
+**Note:** The `Destination` type used with this modifier must also conform to `Identifiable`.
 ```swift
 import SwiftUI
-import Routing
+import Navigation
 
-// Ensure your Routable enum conforms to Identifiable.
+// Ensure your Destination enum conforms to Identifiable.
 // For enums with associated values, you might need to add an explicit `id`.
-enum ModalRoute: Routable, Identifiable {
+enum ModalDestination: Destination, Identifiable {
     case helpPage
     case userDetails(id: String)
 
@@ -232,7 +229,7 @@ enum ModalRoute: Routable, Identifiable {
 }
 
 struct MyContentView: View {
-    @State private var sheetItem: ModalRoute?
+    @State private var sheetItem: ModalDestination?
 
     var body: some View {
         Button("Show Help Sheet") {
@@ -254,23 +251,23 @@ struct UserDetailsView: View {
 
 Available on iOS 17.0+, macOS 14.0+, tvOS 17.0+, watchOS 10.0+.
 
-Presents a view using `navigationDestination(item:destination:)` when a binding to an optional `Routable` item becomes non-nil. The destination view is the `Routable` item itself. This is useful for modal-style presentations or alternative navigation flows that don't necessarily push onto the main `NavigationStack`.
+Presents a view using `navigationDestination(item:destination:)` when a binding to an optional `Destination` item becomes non-nil. The destination view is the `Destination` item itself. This is useful for modal-style presentations or alternative navigation flows that don't necessarily push onto the main `NavigationStack`.
 
--   `item`: A `Binding` to an optional `Routable` item.
+-   `item`: A `Binding` to an optional `Destination` item.
 ```swift
 import SwiftUI
-import Routing
+import Navigation
 
-// Assuming MyDetailRoute is a Routable enum
-// enum MyDetailRoute: Routable { case info, settings ... }
+// Assuming MyDetailDestination is a Destination enum
+// enum MyDetailDestination: Destination { case info, settings ... }
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
 struct AnotherScreen: View {
-    @State private var presentedDetail: MyDetailRoute? // MyDetailRoute conforms to Routable
+    @State private var presentedDetail: MyDetailDestination? // MyDetailDestination conforms to Destination
 
     var body: some View {
         Button("Show Info Modally") {
-            presentedDetail = .info // Assuming .info is a case in MyDetailRoute
+            presentedDetail = .info // Assuming .info is a case in MyDetailDestination
         }
         .navigationDestination(item: $presentedDetail)
     }
@@ -281,15 +278,11 @@ struct AnotherScreen: View {
 
 ## Under the hood
 
-The `RoutingView` essentially wraps your view with a `NavigationStack`. It uses the `navigationDestination(for: RouteType.self)` view extension (detailed in the "View Extensions" section) to automatically handle presenting the views associated with your `Routable` types.
+The `Navigator` essentially wraps your view with a `NavigationStack`. It uses the `navigationDestination(for: DestinationType.self)` view extension (detailed in the "View Extensions" section) to automatically handle presenting the views associated with your `Destination` types.
 ```swift
-// Simplified structure of RoutingView's body:
-NavigationStack(path: $path) { // $path is your @Router's binding
+// Simplified structure of Navigator's body:
+NavigationStack(path: $path) { // $path is your @DestinationState's binding
     rootContent()
-        .navigationDestination(for: RouteType.self) // Uses the Routable-specific extension
+        .navigationDestination(for: DestinationType.self) // Uses the Destination-specific extension
 }
 ```
-
-## Author
-
-James Sedlacek, find me on [X/Twitter](https://twitter.com/jsedlacekjr) or [LinkedIn](https://www.linkedin.com/in/jamessedlacekjr/)

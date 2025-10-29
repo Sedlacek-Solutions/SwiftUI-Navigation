@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import Routing
+@testable import Navigation
 
 struct ArrayTruncationTests {
     @Test func truncateToValidIndex() {

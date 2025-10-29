@@ -1,9 +1,9 @@
-import Routing
+import Navigation
 import SwiftUI
 
 public struct ExampleView: View {
-    @Router private var router: [TestRoute] = []
-    @State private var sheetRoute: SheetRoute? = nil
+    @DestinationState private var destinations: [TestDestination] = []
+    @State private var sheetDestination: SheetDestination? = nil
     private let title: String
 
     @MainActor
@@ -19,21 +19,21 @@ public struct ExampleView: View {
 
             Button("Present Sheet", action: presentSheetAction)
         }
-        .sheet(item: $sheetRoute)
+        .sheet(item: $sheetDestination)
     }
 
     @MainActor
     private func pushScreenAction() {
-        router.navigate(to: .lastExample)
+        destinations.navigate(to: .lastExample)
     }
 
     private func presentSheetAction() {
-        sheetRoute = .sheetExample("It's a whole new world!")
+        sheetDestination = .sheetExample("It's a whole new world!")
     }
 }
 
 public struct SheetExampleView: View {
-    @State private var route: AnotherRoute? = nil
+    @State private var destination: AnotherDestination? = nil
     private let title: String
 
     public init(title: String) {
@@ -47,12 +47,12 @@ public struct SheetExampleView: View {
                 
                 Text(title)
             }
-            .navigationDestination(item: $route)
+            .navigationDestination(item: $destination)
         }
     }
 
     private func pushScreenAction() {
-        route = .anotherExample("Testing")
+        destination = .anotherExample("Testing")
     }
 }
 
@@ -69,7 +69,7 @@ public struct AnotherExampleView: View {
 }
 
 public struct LastExampleView: View {
-    @Router private var router: [TestRoute] = []
+    @DestinationState private var destinations: [TestDestination] = []
 
     @MainActor
     public init() {}
@@ -80,6 +80,6 @@ public struct LastExampleView: View {
 
     @MainActor
     private func navigateToRootAction() {
-        router.navigateToRoot()
+        destinations.navigateToRoot()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Array+Routing.swift
+//  DestinationArray+.swift
 //
 //  Created by James Sedlacek on 12/16/23.
 //
@@ -7,7 +7,7 @@
 import SwiftUI
 
 @MainActor
-public extension Array where Element: Routable {
+public extension Array where Element: Destination {
 
     /// Navigate back in the navigation stack by a specified number of destinations.
     ///

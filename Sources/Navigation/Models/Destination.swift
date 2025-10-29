@@ -1,5 +1,5 @@
 //
-//  Routable.swift
+//  Destination.swift
 //
 //  Created by James Sedlacek on 12/14/23.
 //
@@ -8,14 +8,14 @@ import SwiftUI
 
 /// A convenience type-alias used throughout the routing system.
 ///
-/// It bundles the three capabilities a “route” typically needs:
+/// It bundles the three capabilities a “destination” typically needs:
 ///   • `View`     – supplies the screen’s UI
-///   • `Hashable` – lets the route live inside navigation paths/sets
+///   • `Hashable` – lets the destination live inside navigation paths/sets
 ///   • `Codable`  – enables persistence & deep-link restoration
 ///
 /// Usage:
 /// ```swift
-///public enum TestRoute: Routable {
+///public enum TestDestination: Destination {
 ///    case example(String)
 ///    case lastExample
 ///
@@ -29,4 +29,4 @@ import SwiftUI
 ///    }
 ///}
 /// ```
-public typealias Routable = View & Hashable & Codable
+public typealias Destination = View & Hashable & Codable

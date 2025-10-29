@@ -1,14 +1,14 @@
 //
-//  MockRoute.swift
+//  MockDestination.swift
 //
 //
 //  Created by James Sedlacek on 2/10/24.
 //
 
-import Routing
+import Navigation
 import SwiftUI
 
-enum MockRoute: Routable {
+enum MockDestination: Destination {
     case settings
     case profile
 

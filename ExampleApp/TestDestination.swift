@@ -1,14 +1,14 @@
 //
-//  TestRoute.swift
-//  Routing
+//  TestDestination.swift
+//  SwiftUI-Navigation
 //
 //  Created by James Sedlacek on 5/7/25.
 //
 
-import Routing
+import Navigation
 import SwiftUI
 
-public enum TestRoute: Routable {
+public enum TestDestination: Destination {
     case example(String)
     case lastExample
 
@@ -22,7 +22,7 @@ public enum TestRoute: Routable {
     }
 }
 
-public enum SheetRoute: Routable {
+public enum SheetDestination: Destination {
     case sheetExample(String)
 
     public var body: some View {
@@ -33,11 +33,11 @@ public enum SheetRoute: Routable {
     }
 }
 
-extension SheetRoute: Identifiable {
+extension SheetDestination: Identifiable {
     public nonisolated var id: Self { self }
 }
 
-public enum AnotherRoute: Routable {
+public enum AnotherDestination: Destination {
     case anotherExample(String)
 
     public var body: some View {
