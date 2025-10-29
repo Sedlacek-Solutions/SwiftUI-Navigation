@@ -1,11 +1,11 @@
 # SwiftUI-Navigation
 
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
-[![GitHub stars](https://img.shields.io/github/stars/JamesSedlacek/SwiftUI-Navigation.svg)](https://github.com/JamesSedlacek/SwiftUI-Navigation/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JamesSedlacek/SwiftUI-Navigation.svg?color=blue)](https://github.com/JamesSedlacek/SwiftUI-Navigation/network)
-[![GitHub contributors](https://img.shields.io/github/contributors/JamesSedlacek/SwiftUI-Navigation.svg?color=blue)](https://github.com/JamesSedlacek/SwiftUI-Navigation/network)
-<a href="https://github.com/JamesSedlacek/SwiftUI-Navigation/pulls"><img src="https://img.shields.io/github/issues-pr/JamesSedlacek/SwiftUI-Navigation" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/JamesSedlacek/SwiftUI-Navigation/issues"><img src="https://img.shields.io/github/issues/JamesSedlacek/SwiftUI-Navigation" alt="Issues Badge"/></a>
+[![GitHub stars](https://img.shields.io/github/stars/Sedlacek-Solutions/SwiftUI-Navigation.svg)](https://github.com/Sedlacek-Solutions/SwiftUI-Navigation/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Sedlacek-Solutions/SwiftUI-Navigation.svg?color=blue)](https://github.com/Sedlacek-Solutions/SwiftUI-Navigation/network)
+[![GitHub contributors](https://img.shields.io/github/contributors/Sedlacek-Solutions/SwiftUI-Navigation.svg?color=blue)](https://github.com/Sedlacek-Solutions/SwiftUI-Navigation/network)
+<a href="https://github.com/Sedlacek-Solutions/SwiftUI-Navigation/pulls"><img src="https://img.shields.io/github/issues-pr/Sedlacek-Solutions/SwiftUI-Navigation" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/Sedlacek-Solutions/SwiftUI-Navigation/issues"><img src="https://img.shields.io/github/issues/Sedlacek-Solutions/SwiftUI-Navigation" alt="Issues Badge"/></a>
 
 ## Description
 
