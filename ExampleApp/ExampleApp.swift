@@ -1,6 +1,6 @@
 //
 //  ExampleApp.swift
-//  Routing
+//  SwiftUI-Navigation
 //
 //  Created by James Sedlacek on 5/7/25.
 //

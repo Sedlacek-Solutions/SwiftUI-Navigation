@@ -1,23 +1,23 @@
 //
-//  RoutingView.swift
-//  Routing
+//  Navigator.swift
+//  SwiftUI-Navigation
 //
 
 import SwiftUI
 
 /// A thin convenience wrapper around `NavigationStack` that
-/// drives navigation from an external `[RouteType]` array.
+/// drives navigation from an external `[DestinationType]` array.
 ///
-/// `RoutingView` lets you keep the navigation “path” outside
-/// of your view hierarchy (e.g. in `@AppStorage` via `@Router`)
+/// `Navigator` lets you keep the navigation “path” outside
+/// of your view hierarchy (e.g. in `@AppStorage` via `@DestinationState`)
 /// while still enjoying type-safe `NavigationStack` behaviour.
 /// The view creates its own `NavigationStack` under-the-hood
 /// and forwards a binding to the caller-supplied `path`.
 ///
 /// Usage:
 /// ```swift
-/// enum MyRoute: Routable {                // 1️⃣ Conform to Routable
-///     case profile(Int)                   //    Your route cases
+/// enum MyDestination: Destination {                // 1️⃣ Conform to Destination
+///     case profile(Int)                   //    Your destination cases
 ///
 ///     var body: some View {               //    Each case returns a view
 ///         switch self {
@@ -28,10 +28,10 @@ import SwiftUI
 /// }
 ///
 /// struct RootView: View {
-///     @Router private var path: [MyRoute] = []   // 2️⃣ Persist the path
+///     @DestinationState private var path: [MyDestination] = []   // 2️⃣ Persist the path
 ///
 ///     var body: some View {
-///         RoutingView(path: $path) {             // 3️⃣ Wrap your root UI
+///         Navigator(path: $path) {             // 3️⃣ Wrap your root UI
 ///             VStack {
 ///                 Button("Show profile") {
 ///                     path.navigate(to: .profile(42))
@@ -43,15 +43,15 @@ import SwiftUI
 /// ```
 ///
 /// - Parameters:
-///   - RouteType: The enum/struct you use to describe destinations.
-///                Must conform to `Routable`.
+///   - DestinationType: The enum/struct you use to describe destinations.
+///                Must conform to `Destination`.
 ///   - RootContent: The root view shown at the bottom of the stack.
-public struct RoutingView<RouteType: Routable, RootContent: View>: View {
-    @Binding private var path: [RouteType]
+public struct Navigator<DestinationType: Destination, RootContent: View>: View {
+    @Binding private var path: [DestinationType]
     private let rootContent: () -> RootContent
 
     public init(
-        path: Binding<[RouteType]>,
+        path: Binding<[DestinationType]>,
         @ViewBuilder rootContent: @escaping () -> RootContent
     ) {
         self._path = path
@@ -61,7 +61,7 @@ public struct RoutingView<RouteType: Routable, RootContent: View>: View {
     public var body: some View {
         NavigationStack(path: $path) {
             rootContent()
-                .navigationDestination(for: RouteType.self)
+                .navigationDestination(for: DestinationType.self)
         }
     }
 }

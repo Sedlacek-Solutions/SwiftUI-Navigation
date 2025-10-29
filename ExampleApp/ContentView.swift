@@ -1,21 +1,21 @@
 //
 //  ContentView.swift
-//  Routing
+//  SwiftUI-Navigation
 //
 //  Created by James Sedlacek on 5/7/25.
 //
 
-import Routing
+import Navigation
 import SwiftUI
 
 @MainActor
 public struct ContentView: View {
-    @Router private var router: [TestRoute] = []
+    @DestinationState private var destinations: [TestDestination] = []
 
     public init() {}
 
     public var body: some View {
-        RoutingView(path: $router) {
+        Navigator(path: $destinations) {
             VStack {
                 Button("Push Screen", action: pushScreenAction)
             }
@@ -24,7 +24,7 @@ public struct ContentView: View {
 
     @MainActor
     private func pushScreenAction() {
-        router.navigate(to: .example("Hello World!"))
+        destinations.navigate(to: .example("Hello World!"))
     }
 }
 

@@ -1,52 +1,52 @@
 //
-//  Router.swift
+//  DestinationState.swift
 //
 //  Created by James Sedlacek on 12/15/23.
 //
 
 import SwiftUI
 
-/// A property-wrapper that keeps a stack of `Routable` values in `UserDefaults`
+/// A property-wrapper that keeps a stack of `Destination` values in `UserDefaults`
 /// (via `@AppStorage`) and exposes it to SwiftUI as mutable state.
 ///
-/// The encoded array is stored under the supplied key (default: `"RouterKey"`),
+/// The encoded array is stored under the supplied key (default: `"DestinationStateKey"`),
 /// allowing the navigation stack to survive app launches or scene re-creation.
 ///
 /// Basic usage:
 ///
 /// ```swift
-/// enum AppRoute: String, Routable {
+/// enum AppDestination: String, Destination {
 ///     case home, detail, settings
 /// }
 ///
 /// struct ContentView: View {
-///     @Router var routes: [AppRoute] = [.home]   // stored under "RouterKey"
+///     @DestinationState var destinations: [AppDestination] = [.home]   // stored under "DestinationStateKey"
 ///
 ///     var body: some View { /* … */ }
 /// }
 ///
 /// // Custom key / UserDefaults instance
-/// @Router("OnboardingRoutes", store: .standard)
-/// var onboarding: [OnboardingRoute] = [.welcome]
+/// @DestinationState("OnboardingDestinations", store: .standard)
+/// var onboarding: [OnboardingDestination] = [.welcome]
 /// ```
 ///
 /// Access patterns:
-/// • Read/Write: `routes.append(.detail)`
-/// • Bindable:    `$routes` to drive a `NavigationStack` or similar.
+/// • Read/Write: `destinations.append(.detail)`
+/// • Bindable:    `$destinations` to drive a `NavigationStack` or similar.
 ///
 /// - Note: Encoding/decoding uses `JSONEncoder` / `JSONDecoder`. If encoding
 ///   fails the `defaultValue` is returned silently.
 @MainActor
 @propertyWrapper
-public struct Router<RouteType: Routable>: DynamicProperty {
+public struct DestinationState<T: Destination>: DynamicProperty {
     @AppStorage private var storage: Data
     private let encoder: JSONEncoder = .init()
     private let decoder: JSONDecoder = .init()
-    private let defaultValue: [RouteType]
+    private let defaultValue: [T]
 
-    public var wrappedValue: [RouteType] {
+    public var wrappedValue: [T] {
         get {
-            guard let decoded = try? decoder.decode([RouteType].self, from: storage) else {
+            guard let decoded = try? decoder.decode([T].self, from: storage) else {
                 return defaultValue
             }
             return decoded
@@ -57,7 +57,7 @@ public struct Router<RouteType: Routable>: DynamicProperty {
         }
     }
 
-    public var projectedValue: Binding<[RouteType]> {
+    public var projectedValue: Binding<[T]> {
         Binding(
             get: { wrappedValue },
             set: { wrappedValue = $0 }
@@ -65,8 +65,8 @@ public struct Router<RouteType: Routable>: DynamicProperty {
     }
 
     public init(
-        wrappedValue: [RouteType],
-        _ key: String = "RouterKey",
+        wrappedValue: [T],
+        _ key: String = "DestinationStateKey",
         store: UserDefaults? = nil
     ) {
         defaultValue = wrappedValue

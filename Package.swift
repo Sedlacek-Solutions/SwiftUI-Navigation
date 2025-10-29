@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Routing",
+    name: "SwiftUI-Navigation",
     platforms: [
         .iOS(.v16),
         .macOS(.v13),
@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Routing",
-            targets: ["Routing"]
+            name: "Navigation",
+            targets: ["Navigation"]
         ),
         .executable(
             name: "ExampleApp",
@@ -22,15 +22,15 @@ let package = Package(
         )
     ],
     targets: [
-        .target(name: "Routing"),
+        .target(name: "Navigation"),
         .executableTarget(
             name: "ExampleApp",
-            dependencies: ["Routing"],
+            dependencies: ["Navigation"],
             path: "ExampleApp"
         ),
         .testTarget(
-            name: "RoutingTests",
-            dependencies: ["Routing"]
+            name: "SwiftUINavigationTests",
+            dependencies: ["Navigation"]
         ),
     ]
 )
