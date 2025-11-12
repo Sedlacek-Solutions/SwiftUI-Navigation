@@ -50,7 +50,7 @@ You can install `SwiftUI-Navigation` using the Swift Package Manager.
 
 2. Copy & paste the following into the `Search or Enter Package URL` search bar.
 ```
-https://github.com/JamesSedlacek/SwiftUI-Navigation.git
+https://github.com/Sedlacek-Solutions/SwiftUI-Navigation.git
 ```
 <br>
 
